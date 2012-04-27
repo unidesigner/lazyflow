@@ -510,13 +510,16 @@ class InputSlot(Slot):
     @property
     def value(self):
         """
-        a convenience method for retrieving the value
-        from an (1,) shaped ndarray of dtype object, 
+        a convenience method for retrieving the value from
         used slots that contain single strings, floats, integers etc.
+        If our value is an ndarray, retrieves the ENTIRE array.
         """
         if self.partner is not None:
-            temp = self[:].allocate().wait()[0]
-            return temp
+            temp = self[:].wait()
+            if type(temp) == numpy.ndarray:
+                return temp
+            else:
+                return temp[0]
         else:
             assert self._value is not None, "InputSlot %s (%r): Cannot access .value since slot is not connected and setValue has not been called !" %(self.name, self)
             return self._value
