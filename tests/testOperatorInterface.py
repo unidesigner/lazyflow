@@ -58,18 +58,18 @@ class TestOperator_setupOutputs(object):
     op = OpA(self.g)
     assert op._configured == False
     
-    # check that operator is not configuerd initiallia
+    # check that operator is not configured initially
     op.Input1.setValue(1)
     assert op._configured == False
 
-    # check that the operator is configued
+    # check that the operator is configured
     # after connecting the slot without default value
     op.Input1.setValue(1)
     op.Input4.setValues([1,2])
     assert op._configured == True
     op._configured = False
     
-    # check that the operatir is reconfigured
+    # check that the operator is reconfigured
     # when connecting the slot with default value
     # to another value
     op.Input3.setValue(2)
